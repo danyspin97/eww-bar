@@ -1,0 +1,18 @@
+; multi_monitor is a boolean that determines if the configuration is for a multi-monitor setup
+; it's updated by the starter script when the output changes
+(defvar multi-displays true)
+
+(include "modules/brightness.yuck")
+
+(defwidget left [display_id]
+	(box :orientation "h" 
+		 :space-evenly false
+         :halign "end"
+		 :class "left_modules"
+         (bright :display_id display_id)))
+
+(defwidget bar [display_id]
+  (box :orientation "h"
+       :class "bar"
+    (left :display_id display_id)))
+

@@ -1,0 +1,27 @@
+(defvar br_reveal false)
+
+(include "/home/danyspin97/.config/eww//gen_brightness.yuck")
+
+(defvar desktops '["DP-3", "DP-4"]')
+(defwidget desktops []
+  (box :orientation 'v'
+    (for desktop in {desktops}
+      (label :text "${desktop}"))))
+
+(defvar test_var true)
+(defwidget bright [display_id]
+    (brigthbar_proxy :display_id display_id))
+
+(defwidget brightness-icon []
+  (eventbox :onhover "eww open --toggle --screen \${display_id} brightness_win" :onhoverlost "${test_var ? true : "eww open --toggle --screen \${display_id} brightness_win"}"
+            (box
+              (desktops)
+              (label :text "󰃞" :class "bright-icon" :tooltip "brightness"))))
+
+(defwidget brightbar [brightness_percent]
+    (scale :value brightness_percent
+           :tooltip "${brightness_percent}%"
+           :active true
+           :max 100
+           :min 0
+          :onchange "lumactl set {}%"))
